@@ -31,7 +31,7 @@ const generateFullGearData = () => {
   const data = [];
   
   // This helper maps levels to their gear requirements based on your table's progression
-  const getGearForLevel = (lvl) => {
+  const getGearForLevel = (lvl : number) => {
     if (lvl <= 9) return { gears: [35, 35, 40, 40, 40, 45, 45, 45, 50][lvl-1], upg: 3 };
     if (lvl <= 19) return { gears: [95, 95, 95, 110, 110, 110, 120, 120, 120, 135][lvl-10], upg: 5 };
     if (lvl <= 28) return { gears: [145, 145, 145, 165, 165, 165, 185, 185, 185][lvl-20], upg: 7 };

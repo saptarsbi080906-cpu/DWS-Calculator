@@ -84,14 +84,14 @@ export default function PrecisionCalculator() {
   const [inventory, setInventory] = useState(0); 
   const [isSeasonActive, setIsSeasonActive] = useState(true);
 
-  const adjustCur = (delta) => {
+  const adjustCur = (delta : number) => {
     const next = Math.max(0, Math.min(10, cur + delta));
     setCur(next);
     setSegment(0); 
     if (next >= tgt) setTgt(Math.min(10, next + 1));
   };
 
-  const adjustSegment = (delta) => {
+  const adjustSegment = (delta : number) => {
     if (cur >= 10) {
       setSegment(0);
       return;
@@ -99,7 +99,7 @@ export default function PrecisionCalculator() {
     setSegment((prev) => Math.max(0, Math.min(5, prev + delta)));
   };
 
-  const adjustTgt = (delta) => {
+  const adjustTgt = (delta : number) => {
     const next = Math.max(1, Math.min(10, tgt + delta));
     setTgt(next);
     setSegment(0); 
