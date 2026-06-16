@@ -3,7 +3,7 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom'; 
 import PrecisionCalculator from './Components/PrecisionCalculator.tsx';
-import ApcCalculator from './Components/ApcCalculator';
+import ApcCalculator from './Components/ApcCalculator.tsx';
 
 // Quick shell components for your other tabs
 const GoldFragmentsCalculator = () => (

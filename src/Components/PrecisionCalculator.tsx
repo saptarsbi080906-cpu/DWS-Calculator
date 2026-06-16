@@ -49,7 +49,19 @@ const pillStyles = {
   none:    "bg-white text-secondary border",
 };
 
-function Stepper({ value , onDecrement, onIncrement, textColor }) {
+type StepperProps = {
+  value: number;
+  onDecrement: () => void;
+  onIncrement: () => void;
+  textColor: string;
+};
+
+function Stepper({
+  value,
+  onDecrement,
+  onIncrement,
+  textColor,
+}: StepperProps) {
   return (
     <div className="d-flex align-items-center bg-light rounded-3 border p-1 border-warning border-opacity-25">
       <button
@@ -77,7 +89,9 @@ function Stepper({ value , onDecrement, onIncrement, textColor }) {
 
 // --- MAIN COMPONENT ---
 export default function PrecisionCalculator() {
-  const [selectedBuilding, setSelectedBuilding] = useState("Watch Tower");
+  type BuildingName = keyof typeof buildingData;
+const [selectedBuilding, setSelectedBuilding] =
+  useState<BuildingName>("Watch Tower");
   const [cur, setCur] = useState(0);
   const [segment, setSegment] = useState(0);
   const [tgt, setTgt] = useState(5);
@@ -110,7 +124,10 @@ export default function PrecisionCalculator() {
   const costs = buildingData[selectedBuilding] ?? [];
   const slice = costs.slice(cur, tgt);
   
-  let total = slice.reduce((a, b) => a + b, 0);
+let total = slice.reduce(
+  (a: number, b: number) => a + b,
+  0
+);
   const maxSegments = 5;
 
   if (slice.length > 0 && segment > 0) {
@@ -120,7 +137,6 @@ export default function PrecisionCalculator() {
   }
 
   const remainingParts = Math.max(0, total - inventory);
-  const avg = slice.length > 1 ? Math.round(total / slice.length) : null;
   
   // Dynamic ETA Calculation based on chosen season
   const weeklyIncome = isSeasonActive ? totalInSeason : totalOffSeason;
@@ -205,7 +221,9 @@ export default function PrecisionCalculator() {
                 </label>
                 <select
                   value={selectedBuilding}
-                  onChange={(e) => setSelectedBuilding(e.target.value)}
+                  onChange={(e) =>
+  setSelectedBuilding(e.target.value as BuildingName)
+}
                   className="form-select form-select-lg bg-light border-0 fw-medium focus-ring focus-ring-warning"
                   style={{ cursor: 'pointer' }}
                 >
@@ -273,7 +291,7 @@ export default function PrecisionCalculator() {
                       min="0"
                       className="form-control border-warning border-opacity-50 border-start-0 ps-0 fw-bold focus-ring focus-ring-warning"
                       placeholder="Enter parts you own..."
-                      value={inventory === 0 ? "" : inventory}
+                      value={inventory || 0}
                       onChange={(e) => {
                         const val = parseInt(e.target.value);
                         setInventory(isNaN(val) ? 0 : Math.max(0, val));
@@ -436,7 +454,7 @@ export default function PrecisionCalculator() {
                   </tbody>
                   <tfoot className="bg-light fw-bold fs-6">
                     <tr>
-                      <td colSpan="2" className="text-end py-3 text-muted text-uppercase" style={{ letterSpacing: '0.05em', fontSize: '0.75rem' }}>Total Weekly Income:</td>
+                      <td colSpan={2} className="text-end py-3 text-muted text-uppercase" style={{ letterSpacing: '0.05em', fontSize: '0.75rem' }}>Total Weekly Income:</td>
                       <td className={`text-center py-3 ${isSeasonActive ? 'text-warning text-shadow-sm' : 'text-muted'}`} style={{ textShadow: isSeasonActive ? '0 1px 2px rgba(0,0,0,0.1)' : 'none' }}>
                         {totalInSeason}
                       </td>
