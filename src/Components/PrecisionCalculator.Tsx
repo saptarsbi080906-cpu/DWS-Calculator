@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 // --- BUILDING COST DATA ---
 const buildingData = {
@@ -33,7 +33,7 @@ const totalInSeason = 618;
 const totalOffSeason = 618;
 
 // --- UTILITIES ---
-function getPillState(index, cur, tgt) {
+function getPillState(index : number, cur : number, tgt : number) {
   if (index < cur) return "past";
   if (index === cur) return "current";
   if (index > cur && index < tgt) return "range";
@@ -49,7 +49,7 @@ const pillStyles = {
   none:    "bg-white text-secondary border",
 };
 
-function Stepper({ value, onDecrement, onIncrement, textColor }) {
+function Stepper({ value , onDecrement, onIncrement, textColor }) {
   return (
     <div className="d-flex align-items-center bg-light rounded-3 border p-1 border-warning border-opacity-25">
       <button
@@ -124,7 +124,7 @@ export default function PrecisionCalculator() {
   
   // Dynamic ETA Calculation based on chosen season
   const weeklyIncome = isSeasonActive ? totalInSeason : totalOffSeason;
-  const etaWeeks = remainingParts > 0 ? (remainingParts / weeklyIncome).toFixed(1) : 0;
+  const etaWeeks: number = remainingParts > 0 ? Number((remainingParts / weeklyIncome).toFixed(1)) : 0;
 
   return (
     <div className="min-vh-100 py-5 font-monospace" style={{ backgroundColor: '#fffcf5', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
@@ -337,7 +337,7 @@ export default function PrecisionCalculator() {
                   </div>
                 ) : (
                   <div className="d-flex flex-column gap-3">
-                    {slice.map((cost, i) => {
+                    {slice.map((cost : number, i : number) => {
                       const from = cur + i;
                       const to = from + 1;
                       const isCurrentDiscountedLevel = i === 0 && segment > 0;
