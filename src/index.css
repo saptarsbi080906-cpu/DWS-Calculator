@@ -1,0 +1,10 @@
+/* Add this to your main layout CSS */
+.main-content {
+  transition: margin-left 0.3s ease;
+  margin-left: 260px; /* If open */
+}
+
+/* If closed */
+.main-content.collapsed {
+  margin-left: 80px;
+}
